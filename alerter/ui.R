@@ -12,14 +12,29 @@ library(shinydashboard)
 library(googleAuthR)
 
 ## header ####
-header <- dashboardHeader()
+header <- dashboardHeader(title = "Anomaly Scheduler")
 
 ## sidebar ####
-sidebar <- dashboardSidebar(collapsed = T,
+sidebar <- dashboardSidebar(collapsed = F,
                             googleAuthUI("loginButton"),
-                            textInput("api_id","Enter API ID",value = ""),
-                            textInput("api_key","Enter API Passphrase",value = ""),
-                            actionButton("button_api","Validate")
+                            conditionalPanel(
+                              condition = "input.button_api == 0",
+                              textInput("api_id","Enter API ID",value = ""),
+                              passwordInput("api_key",label = "Enter API Passphrase",value = ""),
+                              actionButton("button_api","Validate")
+                            ),
+                            conditionalPanel(
+                              condition = "input.button_api == 1",
+                              column(width = 12,
+                                     uiOutput("controlsRSID")
+                              )
+                            ),
+                            conditionalPanel(
+                              condition = "input.selectRSID != ''",
+                              column(width = 12,
+                                     uiOutput("select_rsid")
+                              )
+                            )
                             )
 
 ## body ####
@@ -27,12 +42,33 @@ body <- dashboardBody(
   tabsetPanel(
     tabPanel("Schedule",
              fluidRow(
-               column(width=2,selectInput("select_rsid","Select Report Suite",choices = c("","UK","US","DE"),selected = "",multiple = F,selectize = T)),
-               column(width=2,
-                      actionButton("set_rsid","Fetch Metadata")
-                      ),
-               tags$style(type='text/css', ".col-sm-2 { vertical-align- middle; height- 50px; width- 100%; font-size- 30px;}")
-             )),
+               conditionalPanel(
+                 condition = "input.selected_rsid != ''",
+                 column(width = 6,
+                        uiOutput("select_events")
+                 )
+               ),
+               conditionalPanel(
+                 condition = "input.selected_rsid != ''",
+                 column(width = 6,
+                        uiOutput("select_reports")
+                 )
+               )
+             ),
+             fluidRow(
+               conditionalPanel(
+                 condition = "input.selected_rsid != ''",
+                 column(width = 3,
+                        uiOutput("select_frequency")
+                 ),
+                 column(width = 3,
+                        uiOutput("select_startdate"),
+                        uiOutput("select_enddate")
+                 )
+               )
+             )
+             ## end of 1 fluid panel
+             ),
     tabPanel("Task Tracker"),
     tabPanel("Info")
   )
