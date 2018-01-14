@@ -52,7 +52,7 @@ shinyServer(function(input, output,session) {
       need((!is.null(report_names())),"")
     )
     isolate(input$selected_rsid)
-    selectizeInput("select_reports","Select Events to watch",choices = report_events()$name, selected = "",multiple = TRUE)
+    selectizeInput("select_event","Select Events to watch",choices = report_events()$name, selected = "",multiple = TRUE)
   })
   
   output$select_reports <- renderUI({
@@ -60,7 +60,7 @@ shinyServer(function(input, output,session) {
       need((!is.null(report_names())),"")
     )
     isolate(input$selected_rsid)
-    selectizeInput("select_reports","Select Breakdown Reports",choices = report_names()$name, selected = "",multiple = TRUE)
+    selectizeInput("select_report","Select Breakdown Reports",choices = report_names()$name, selected = "",multiple = TRUE)
   })
   
   ## get scheduling frequency
@@ -77,14 +77,14 @@ shinyServer(function(input, output,session) {
     validate(
       need((!is.null(report_names())),"")
     )
-    dateInput("date", label = p(strong("Start Date")), value = Sys.Date(),min = Sys.Date())
+    dateInput("date_start", label = p(strong("Start Date")), value = Sys.Date(),min = Sys.Date())
   })
   
   output$select_enddate <- renderUI({
     validate(
       need((!is.null(report_names())),"")
     )
-    dateInput("date", label = p(strong("End Date")), value = Sys.Date()+1,min = Sys.Date()+1)
+    dateInput("date_end", label = p(strong("End Date")), value = Sys.Date()+1,min = Sys.Date()+1)
   })
   
   
