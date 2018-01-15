@@ -4,7 +4,6 @@
 
 library(shiny)
 library(shinydashboard)
-library(googleAuthR)
 
 ## header ####
 header <- dashboardHeader(title = "Anomaly Scheduler")
