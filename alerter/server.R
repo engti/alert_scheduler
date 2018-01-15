@@ -8,7 +8,6 @@
 #
 
 library(shiny)
-library(googleAuthR)
 library(shinydashboard)
 library(RSiteCatalyst)
 
