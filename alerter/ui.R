@@ -10,7 +10,6 @@ header <- dashboardHeader(title = "Anomaly Scheduler")
 
 ## sidebar ####
 sidebar <- dashboardSidebar(collapsed = F,
-                            googleAuthUI("loginButton"),
                             conditionalPanel(
                               condition = "input.button_api == 0",
                               textInput("api_id","Enter API ID",value = ""),
