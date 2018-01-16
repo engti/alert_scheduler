@@ -60,6 +60,16 @@ body <- dashboardBody(
                         uiOutput("select_enddate")
                  )
                )
+             ),
+             fluidRow(
+               conditionalPanel(
+                 condition = "input.selected_rsid != ''",
+                 column(width = 3,
+                        uiOutput("schedule_report")
+                 ),
+                 column(width=3,
+                        verbatimTextOutput("validation"))
+               )
              )
              ## end of 1 fluid panel
              ),

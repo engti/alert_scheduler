@@ -86,5 +86,20 @@ shinyServer(function(input, output,session) {
     dateInput("date_end", label = p(strong("End Date")), value = Sys.Date()+1,min = Sys.Date()+1)
   })
   
+  ## schedule a report
+  output$schedule_report <- renderUI({
+    actionButton("button_schedule","Schedule Report")
+  })
+  
+  ## write to bq
+  bq_write <- eventReactive(input$button_schedule,{
+    ## function to write to bq
+    ## browser()
+  })
+  
+  ## write some validation text
+  output$validation <- renderText({
+    str(input$select_report)
+  })
   
 })
