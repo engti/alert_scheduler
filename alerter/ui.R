@@ -6,7 +6,7 @@ library(shiny)
 library(shinydashboard)
 
 ## header ####
-header <- dashboardHeader(title = "Anomaly Scheduler")
+header <- dashboardHeader(disable = T)
 
 ## sidebar ####
 sidebar <- dashboardSidebar(collapsed = F,
